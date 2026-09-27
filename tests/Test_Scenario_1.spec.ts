@@ -9,12 +9,11 @@
 // 7. Validate whether the same text message is displayed in the
 // right-hand panel under the “Your Message:” section.
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
-test('Simple Form Demo', async ({ page }) => {
-  await page.goto('https://www.testmuai.com/selenium-playground/');
+test.use({ menuLink: 'Simple Form Demo' });
 
-  await page.getByRole('link', { name: 'Simple Form Demo' }).click();
+test('Simple Form Demo', async ({ openPage: page }) => {  
 
   await expect(page).toHaveURL(/simple-form-demo/);
 

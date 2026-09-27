@@ -11,19 +11,26 @@
 // 7. Once submitted, validate the success message “Thanks for contacting
 // us, we will get back to you shortly.” on the screen.
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
-test('Input form submit validation', async ({ page }) => {
-  await page.goto('https://www.testmuai.com/selenium-playground/');
-  await page.click('text=Input Form Submit');
+test.use({ menuLink: 'Input Form Submit' });
 
+test('Input form submit validation', async ({ openPage: page },testInfo) => {
   await page.click('button:has-text("Submit")');
+  await testInfo.attach('empty-form-submit-attempt', {
+    body: await page.screenshot(),
+    contentType: 'image/png',
+  });
 
   const nameField = page.locator('#name');
   const validationMessage = await nameField.evaluate(
     (el: HTMLInputElement) => el.validationMessage
   );
   expect(validationMessage).toBe('Please fill out this field.');
+  await testInfo.attach('validation-error-message', {
+    body: await page.screenshot(),
+    contentType: 'image/png',
+  });
 
   await page.fill('#name', 'TAyyAba InAmDaR');
   await page.fill('#inputEmail4', 'john.doe@example.com');
@@ -38,6 +45,10 @@ test('Input form submit validation', async ({ page }) => {
   await page.fill('#inputAddress2', 'Apt 4B');
   await page.fill('#inputState', 'NY');
   await page.fill('#inputZip', '10001');
+  await testInfo.attach('form-filled-before-submit', {
+    body: await page.screenshot(),
+    contentType: 'image/png',
+  });
 
   await page.click('button:has-text("Submit")');
 
