@@ -35,6 +35,12 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+     {
+      name: "chrome:latest:Windows 10@lambdatest",
+      use: { ...devices['Desktop Chrome'],
+       },
+      },
+      
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'],

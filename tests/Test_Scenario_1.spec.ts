@@ -10,7 +10,8 @@
 // right-hand panel under the “Your Message:” section.
 
 import { test, expect } from './fixtures';
-
+import test from '../lambdatest-setup';
+import { expect } from '@playwright/test';
 test.use({ menuLink: 'Simple Form Demo' });
 
 test('Simple Form Demo', async ({ openPage: page }) => {  
