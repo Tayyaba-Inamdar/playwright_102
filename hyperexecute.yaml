@@ -34,11 +34,11 @@ post:
   - echo "Finished ${matrix.browser} on ${matrix.os} — reports in playwright-report/, results in test-results/"
 
 uploadArtefacts:
-  - name: playwright-report-${matrix.os}-${matrix.browser}
+  - name: playwright-report
     path:
       - playwright-report/**
       - test-results/**
-
+      
 report: true
 partialReports:
   frameworkName: playwright
