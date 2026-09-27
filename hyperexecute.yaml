@@ -31,7 +31,7 @@ cacheDirectories:
 
 pre:
   - npm ci
-  - export PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu22.04 && npx playwright install --with-deps chromium firefox
+  - npx playwright install chromium firefox
 
 testSuites:
   - npx playwright test --project=$browser --config=./playwright.config.ts
