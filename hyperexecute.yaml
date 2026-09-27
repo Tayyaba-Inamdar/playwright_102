@@ -24,7 +24,6 @@ env:
   BASE_URL: "https://www.testmuai.com/selenium-playground/"
   LT_USERNAME: ${{.secrets.LT_USERNAME}}
   LT_ACCESS_KEY: ${{.secrets.LT_ACCESS_KEY}}
-  PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ubuntu22.04
 
 cacheKey: '{{ checksum "package-lock.json" }}'
 cacheDirectories:
@@ -32,6 +31,7 @@ cacheDirectories:
 
 pre:
   - npm ci
+  - npm install @playwright/test@1.48.0 --save-exact
   - npx playwright install chromium firefox
 
 testSuites:
