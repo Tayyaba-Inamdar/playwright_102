@@ -20,9 +20,10 @@ test('Simple Form Demo', async ({ page }) => {
 
   const message = 'Welcome to TestMu AI';
 
-  await page.locator('#user-message').fill(message);
+  await page.locator('//input[@id="user-message" and @placeholder="Please enter your Message"]').fill(message);
 
   await page.getByRole('button', { name: 'Get Checked Value' }).click();
 
-  await expect(page.locator('#display')).toHaveText(message);
+  await expect(page.locator('[id="message"]')).toHaveText(message);
+
 });

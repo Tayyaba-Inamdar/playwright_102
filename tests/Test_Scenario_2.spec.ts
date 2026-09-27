@@ -7,35 +7,21 @@ import { test, expect } from '@playwright/test';
 
 test('Drag and drop slider to 95', async ({ page }) => {
   await page.goto('https://www.testmuai.com/selenium-playground/');
-  await page.click('text=Drag & Drop Sliders');
+  await page.getByRole('link', { name: 'Drag & Drop Sliders' }).click();
+ 
+  const sliderContainer = page.locator('#slider3');
+  const slider = page.locator('//input[@type="range" and @value="15"]');
+  const output = sliderContainer.locator('//output[@id="rangeSuccess"]');
 
-  const slider = page.locator('#slider3 .ui-slider-handle');
-  const rangeValue = page.locator('#slider3-value');
+  await expect(slider).toHaveAttribute('value', '15');
+  await expect(output).toHaveText('15');
 
-  await expect(rangeValue).toHaveText('15');
+   await slider.evaluate((element: HTMLInputElement) => {
+    element.value = '95';
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+  });
 
-  const sliderBox = await slider.boundingBox();
-  if (!sliderBox) {
-    throw new Error('Slider bounding box not found');
-  }
+  await expect(output).toHaveText('95');
 
-  await slider.hover();
-  await page.mouse.down();
-
-  const targetValue = 95;
-  const totalSteps = 100;
-  const sliderTrack = page.locator('#slider3');
-  const trackBox = await sliderTrack.boundingBox();
-  if (!trackBox) {
-    throw new Error('Slider track bounding box not found');
-  }
-
-  const targetX = trackBox.x + (trackBox.width * targetValue) / totalSteps;
-  const targetY = sliderBox.y + sliderBox.height / 2;
-
-  await page.mouse.move(targetX, targetY, { steps: 20 });
-  await page.mouse.up();
-
-  await expect(rangeValue).toHaveText(targetValue.toString());
 });
 

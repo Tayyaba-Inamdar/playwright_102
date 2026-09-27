@@ -23,17 +23,17 @@ test('Input form submit validation', async ({ page }) => {
   const validationMessage = await nameField.evaluate(
     (el: HTMLInputElement) => el.validationMessage
   );
-  expect(validationMessage).toBe('Please fill in this field.');
+  expect(validationMessage).toBe('Please fill out this field.');
 
-  await page.fill('#name', 'John Doe');
+  await page.fill('#name', 'TAyyAba InAmDaR');
   await page.fill('#inputEmail4', 'john.doe@example.com');
   await page.fill('#inputPassword4', 'Password123');
-  await page.fill('#company', 'Test Company');
+  await page.fill('#company', 'TestmuAi Company');
   await page.fill('#websitename', 'https://www.example.com');
 
   await page.selectOption('select[name="country"]', { label: 'United States' });
 
-  await page.fill('#inputCity', 'New York');
+  await page.fill('#inputCity', 'New Gate');
   await page.fill('#inputAddress1', '123 Main Street');
   await page.fill('#inputAddress2', 'Apt 4B');
   await page.fill('#inputState', 'NY');
