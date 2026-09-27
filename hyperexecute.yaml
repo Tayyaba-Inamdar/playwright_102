@@ -31,6 +31,7 @@ cacheDirectories:
 
 pre:
   - npm ci
+  - npm install @playwright/test@1.48.0 --save-exact
   - npx playwright install chromium firefox
 
 testSuites:
@@ -50,5 +51,7 @@ partialReports:
   frameworkName: playwright
   location: playwright-report
   type: html
+
+scenarioCommandStatusOnly: true  
 
 jobLabel: [playwright-typescript, matrix, certification]
