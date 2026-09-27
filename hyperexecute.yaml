@@ -31,13 +31,13 @@ cacheDirectories:
 
 pre:
   - npm ci
-  - npx playwright install --with-deps chromium firefox
+  - npx playwright install chromium firefox
 
 testSuites:
-  - npx playwright test --project=${matrix.browser} --config=./playwright.config.ts
+  - npx playwright test --project=$browser --config=./playwright.config.ts
 
 post:
-  - echo "Finished ${matrix.browser} on ${matrix.os} — reports in playwright-report/, results in test-results/"
+  - echo "Finished $browser on $os — reports in playwright-report/, results in test-results/"
 
 uploadArtefacts:
   - name: playwright-report
