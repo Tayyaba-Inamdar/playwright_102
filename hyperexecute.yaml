@@ -49,7 +49,7 @@ report: true
 partialReports:
   frameworkName: playwright
   location: playwright-report
-  type: HTML
+  type: html
 
 scenarioCommandStatusOnly: true  
 
