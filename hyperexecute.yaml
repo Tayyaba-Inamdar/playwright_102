@@ -1,0 +1,49 @@
+---
+version: "0.1"
+
+globalTimeout: 90
+testSuiteTimeout: 60
+testSuiteStep: 30
+
+matrix:
+  os: [win, linux]
+  browser: [chromium, firefox]
+
+runson: ${matrix.os}
+concurrency: 2
+retryOnFailure: true
+maxRetries: 1
+
+env:
+  TEST_ENV: qa
+  BASE_URL: "https://www.testmuai.com/selenium-playground/"
+  LT_USERNAME: ${{.secrets.LT_USERNAME}}
+  LT_ACCESS_KEY: ${{.secrets.LT_ACCESS_KEY}}
+  API_TOKEN: ${{.secrets.API_TOKEN}}
+
+cacheKey: '{{ checksum "package-lock.json" }}'
+cacheDirectories:
+  - node_modules
+pre:
+  - npm ci
+  - npx playwright install --with-deps chromium firefox
+
+testSuites:
+  - npx playwright test --project=${matrix.browser} --config=./playwright.config.ts
+
+post:
+  - echo "Finished ${matrix.browser} on ${matrix.os} — reports in playwright-report/, results in test-results/"
+
+uploadArtefacts:
+  - name: playwright-report-${matrix.os}-${matrix.browser}
+    path:
+      - playwright-report/**
+      - test-results/**
+
+report: true
+partialReports:
+  frameworkName: playwright
+  location: playwright-report
+  type: html
+
+jobLabel: [playwright-typescript, matrix, certification]

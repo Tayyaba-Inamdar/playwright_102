@@ -1,6 +1,6 @@
 import { test as base, expect, type Page } from '@playwright/test';
 
-const BASE_URL = 'https://www.testmuai.com/selenium-playground/';
+const BASE_URL = process.env.BASE_URL ?? 'https://www.testmuai.com/selenium-playground/';
 
 type PlaygroundFixtures = {
  menuLink: string; 
