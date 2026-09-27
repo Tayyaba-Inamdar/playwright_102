@@ -5,11 +5,16 @@ globalTimeout: 90
 testSuiteTimeout: 60
 testSuiteStep: 30
 
+runson: ${matrix.os}
+
+runtime:
+  language: node
+  version: "20"
+  
 matrix:
   os: [win, linux]
   browser: [chromium, firefox]
 
-runson: ${matrix.os}
 concurrency: 2
 retryOnFailure: true
 maxRetries: 1
@@ -25,8 +30,6 @@ cacheDirectories:
   - node_modules
 
 pre:
-  - nvm install 20
-  - nvm use 20
   - npm ci
   - npx playwright install --with-deps chromium firefox
 
