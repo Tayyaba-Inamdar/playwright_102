@@ -23,7 +23,10 @@ env:
 cacheKey: '{{ checksum "package-lock.json" }}'
 cacheDirectories:
   - node_modules
+
 pre:
+  - nvm install 20
+  - nvm use 20
   - npm ci
   - npx playwright install --with-deps chromium firefox
 
